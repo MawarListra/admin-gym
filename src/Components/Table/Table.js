@@ -7,6 +7,7 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import { VscFilter } from "react-icons/vsc";
 // import GlobalFilter from "./GlobalFilter";
 import ModalForm from "./ModalForm";
+import ModalFilter from "./ModalFilter";
 import { ColumnFilter } from "./ColumnFilter";
 
 function Table({ columns, data, banyak }) {
@@ -47,6 +48,19 @@ function Table({ columns, data, banyak }) {
     const [open, setOpen] = React.useState(false);
     const [openFilter, setOpenFilter] = React.useState(false)
 
+    const handleClickFilter = () => {
+        if(openFilter === true){
+            setOpenFilter(false)
+        }else{
+            setOpenFilter(true)
+        }
+        console.log('clicked')
+    }
+    // const checkFilter = () => {
+    //     // setOpenFilter(true)
+    //     console.log('tempt')
+    // }
+
     for (let i = first; i <= last; i++) {
         pageNumber.push(i);
     }
@@ -69,30 +83,54 @@ function Table({ columns, data, banyak }) {
                         {banyak.resultHadir} Anggota Dimension
                     </div>
                 </div>
-                <div className='space-y-4'>
-                <button onClick={() => setOpenFilter(true)} className="flex items-center rounded-xl pr-12 pl-6 bg-warnarow font-poppins text-primary font-normal text-base border-2 border-primary h-14 mt-5">
-                    <VscFilter className="text-2xl mr-3" />
-                    Filter
-                </button>
-                {openFilter && (
-                    <div className='flex flex-col w-64 justify-center items-center'>
-                        <div className='justify-bertween'>
-                            <h1>Filter</h1>
-                            <h1>Simpan</h1>
+                <div className='flex flex-col space-y-4'>
+                    <button onClick={handleClickFilter} className="flex items-center w-36 rounded-xl pr-12 pl-6 bg-warnarow font-poppins text-primary font-normal text-base border-2 border-primary h-14 mt-5">
+                        <VscFilter className="text-2xl mr-3" />
+                        Filter
+                    </button>
+                    <ModalFilter open={openFilter} closeModal={setOpenFilter} />
+                    {/* {openFilter && (
+                        <div className='flex flex-col bg-white border-2 border-gray-200 w-64 h-80 justify-bertween z-10'>
+                            <div className='flex flex-row justify-between text-base font-poppins px-4 pt-4'>
+                                <h1>Filters</h1>
+                                <h1 className='text-primary'>Simpan</h1>
+                            </div>
+                            <div className='text-xs font-poppins space-y-2 mt-2'>
+                                <div className='px-4'>
+                                    <p>Status Anggota</p>
+                                </div>
+                                <div className='flex flex-col bg-gray-200 py-2 px-4 space-y-4'>
+                                    <div className='flex items-center space-x-2'>
+                                        <input className='w-6 h-6' type='checkbox'/>
+                                        <label>Semua</label>
+                                    </div>
+                                    <div className='flex items-center space-x-2'>
+                                        <input className='w-6 h-6' type='checkbox'/>
+                                        <label>Aktif</label>
+                                    </div>
+                                    <div className='flex items-center space-x-2'>
+                                        <input className='w-6 h-6' type='checkbox'/>
+                                        <label>Tidak Aktif</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='text-xs font-poppins space-y-2 mt-2'>
+                                <div className='px-4'>
+                                    <p>Jenis Kelamin</p>
+                                </div>
+                                <div className='flex flex-col bg-gray-200 py-2 px-4 space-y-4'>
+                                    <div className='flex items-center space-x-2'>
+                                        <input className='w-6 h-6' type='checkbox'/>
+                                        <label>Laki-laki</label>
+                                    </div>
+                                    <div className='flex items-center space-x-2'>
+                                        <input className='w-6 h-6' type='checkbox'/>
+                                        <label>Perempuan</label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <p>Status Anggota</p>
-                            <input type='checkbox'>Semua</input>
-                            <input type='checkbox'>Aktif</input>
-                            <input type='checkbox'>Tidak Aktif</input>
-                        </div>
-                        <div>
-                            <p>Jenis Kelamin</p>
-                            <input type='checkbox'>Laki-laki</input>
-                            <input type='checkbox'>Perempuan</input>
-                        </div>
-                    </div>
-                )}
+                    )} */}
                 </div>
                 <button onClick={() => setOpen(true)} className="flex items-center rounded-xl pr-12 pl-6 bg-warnarow font-poppins text-primary font-normal text-base border-2 border-primary h-14 mt-5">
                     <AiOutlinePlusCircle className="text-2xl mr-3" />
@@ -153,7 +191,7 @@ function Table({ columns, data, banyak }) {
                     </div>
                 </div>
             </div>
-            {pageCount <= 6 ? (<div className="flex justify-center mx-auto mb-11">
+            {pageCount <= 6 ? (<div className="flex justify-center mx-auto mb-11 z-0">
                 {/* //absolute inset-x-0 bottom-10 */}
                 {pageOptions.includes(indexs - 1) && (
                     <button
@@ -187,7 +225,7 @@ function Table({ columns, data, banyak }) {
                         <HiChevronRight className="h-5 w-5" aria-hidden="true" />
                     </button>
                 )}
-            </div>) : (<div className="flex justify-center mx-auto mb-11">
+            </div>) : (<div className="flex justify-center mx-auto mb-11 z-0">
                 {/* //absolute inset-x-0 bottom-10 */}
                 {pageOptions.includes(indexs - 1) && (
                     <button

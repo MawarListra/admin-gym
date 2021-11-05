@@ -1,24 +1,27 @@
-import {React, useCallback, useState} from 'react'
-import {useHistory} from 'react-router-dom'
+import {React, useState} from 'react'
+// import {useHistory} from 'react-router-dom'
 import {AiOutlineEyeInvisible,AiOutlineEye} from "react-icons/ai"
 
 function Login() {
     const [isOpen, setIsOpen] = useState(false)
 
-    const handleOpenModal = () =>{
+    const data = {
+        username: '',
+        password: '',
+    }
+    const handleOpenModal = (e) =>{
+        e.preventDefault();
         setIsOpen(true)
     }
-    const handleCloseModal = () =>{
+    const handleCloseModal = (e) =>{
+        e.preventDefault();
         setIsOpen(false)
     }
-    const history=useHistory();
-    const handleOnClick = useCallback(
-          () => {
-              alert('Login berhasil!')
-              history.push('/AdminDashboard')
-          },
-          [history],
-    )
+    const handleOnClick = (e) =>{
+        e.preventDefault();
+        alert('Login Success')
+        window.location="/AdminDashboard"
+    }
     return (
         <div className='bg-white'>
             <div className='flex h-screen'>
@@ -35,7 +38,8 @@ function Login() {
                             className="shadow appearance-none rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100 text-2xl"
                             id="username"
                             type="text"
-                            placeholder="Username" />
+                            placeholder="Username" 
+                            onChange={(e) => (data.username = e.target.value)}/>
                         </div>
                         <div className='mb-10'>
                             <label 
@@ -43,18 +47,22 @@ function Login() {
                             htmlFor="password">
                                 Password
                             </label>
-                            <input 
-                            className="shadow appearance-none rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100 text-2xl"
-                            id="password"
-                            type="text"
-                            placeholder="Password" />
-                            {isOpen===false?( <button onClick={handleOpenModal}>
-                                <AiOutlineEyeInvisible className="absolute inset-y-1 right-3 text-2xl text-mata" />
-                            </button>):( <button onClick={handleCloseModal}>
-                                <AiOutlineEye className="absolute inset-y-1 right-3 text-2xl text-mata" />
-                            </button>)}
+                            <div className='flex flex-row'>
+                                <input 
+                                className="shadow appearance-none rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100 text-2xl"
+                                id="password"
+                                type={isOpen === false ? 'password':'text'}
+                                placeholder="Password"
+                                onChange={(e) => (data.password = e.target.value)} />
+                                {isOpen === false ? ( <button onClick={handleOpenModal}>
+                                    <AiOutlineEyeInvisible className=" inset-y-1 right-3 text-2xl text-mata z-10" />
+                                </button>):( <button onClick={handleCloseModal}>
+                                    <AiOutlineEye className=" inset-y-1 right-3 text-2xl text-mata z-10" />
+                                </button>)}
+                            </div>
                         </div>
-                        <button className="bg-indigo-700 hover:bg-indigo-600 text-white font-bold py-2 px-4 w-full rounded-md focus:outline-none focus:shadow-outline text-2xl font-medium">
+                        <button 
+                        className="bg-indigo-700 hover:bg-indigo-600 text-white font-bold py-2 px-4 w-full rounded-md focus:outline-none focus:shadow-outline text-2xl font-medium">
                             Masuk
                         </button>
                     </form>
