@@ -1,18 +1,17 @@
 import React, { useState, useEffect} from 'react'
 import Table from '../Components/Table/Table';
-import * as BoxIcon from "react-icons/bi";
+// import * as BoxIcon from "react-icons/bi";
 import axios from 'axios';
-import ModalForm from '../Components/Table/ModalForm';
 
-function DaftarAnggota({pilih}) {
+function Dashboard({pilih}) {
     const [tamu, setTamu] = useState([]);
     const [count,setCount] = useState([]);
-    const [opsi, setOpsi] = useState(0)
-    const [open, setOpen] = useState(false);
-    const handleClickEdit = ()=>{
-        setOpen(true)
-        setOpsi(1)
-    }
+    // const [opsi, setOpsi] = useState(0)
+    // const [open, setOpen] = useState(false);
+    // const handleClickEdit = ()=>{
+    //     setOpen(true)
+    //     setOpsi(1)
+    // }
     function createData(id, nama, ttl, phone, jnskelamin, start, end, statusanggota) {
         return {id, nama, ttl, phone, jnskelamin, start, end, statusanggota};
     }
@@ -104,28 +103,14 @@ function DaftarAnggota({pilih}) {
             },
             disableFilters: true
         },
-        {
-            mystyle: "rounded-r-3xl max-w-sedang",
-            width: 20,
-            Header: ' ',
-            accessor: "id",
-            Cell: (data) => {
-                return <div className="flex space-x-10">
-                    <button onClick={handleClickEdit} >
-                        <BoxIcon.BiEdit className="text-warnaborder text-2xl items-center p-0" />
-                    </button>
-                </div>
-            },
-            disableFilters: true
-        },
     ],[]
     );
     return (
-    <div className="mx-10">
-        <Table columns={COLUMNS} data={rows} banyak={count} pilih={pilih}/>
-        <ModalForm open={open} closeModal={setOpen} pilih={opsi}/>
-    </div>
+        <div className="mx-10">
+            <Table columns={COLUMNS} data={rows} banyak={count} pilih={pilih}/>
+            {/* <ModalForm open={open} closeModal={setOpen} pilih={opsi}/> */}
+        </div>
     )
 }
 
-export default DaftarAnggota
+export default Dashboard

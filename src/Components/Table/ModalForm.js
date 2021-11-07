@@ -2,7 +2,7 @@ import React, { Fragment, useRef } from 'react'
 import { TiDelete } from "react-icons/ti";
 import { Dialog, Transition } from '@headlessui/react'
 
-function ModalForm({ closeModal, open }) {
+function ModalForm({ closeModal, open, pilih }) {
     const cancelButtonRef = useRef(null);
     const [nama, setNama] = React.useState('');
     const [ttl, setTtl] = React.useState('');
@@ -70,7 +70,7 @@ function ModalForm({ closeModal, open }) {
                         >
                             <div className="bg-white border rounded-3xl inline-block text-left shadow-xl transform transition-all lg:my-8 lg:align-middle lg:max-w-lg lg:w-auto">
                                 <Dialog.Title className="flex justify-between leading-6 font-poppins text-xl text-center px-6 py-5">
-                                   Edit Anggota
+                                   {pilih === 0 ? ('Tambah Anggota') : ('Edit Anggota')}
                                     <TiDelete onClick={() => closeModal(false)} className="text-abuabu text-3xl cursor-pointer" />
                                 </Dialog.Title>
                                 <div className="border-b-2"></div>
